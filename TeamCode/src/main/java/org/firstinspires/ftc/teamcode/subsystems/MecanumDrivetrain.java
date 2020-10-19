@@ -14,6 +14,33 @@ public class MecanumDrivetrain extends SubsystemBase {
     private DcMotor backLeft   = null;
     private DcMotor backRight  = null;
 
+    private class MecanumMotorSpeeds {
+
+        double[] speeds = new double[4];
+
+        double FrontLeft, FrontRight, BackLeft, BackRight;
+
+        MecanumMotorSpeeds(double FrontLeft, double FrontRight, double BackLeft, double BackRight) {
+
+            // Load Speeds
+            speeds = new double[]{FrontLeft, FrontRight, BackLeft, BackRight};
+
+            // Find Largest Speed
+            double max = Math.abs(speeds[0]);
+            for(double speed : speeds) if(Math.abs(speed) > max) max = Math.abs(speed);
+
+            // Reduce All Speeds If Max Speed Is Outside Allowed Range of [-1,1]
+            if(max > 1d) for(int i = 0 ; i < speeds.length ; ++i) speeds[i] /= max;
+
+            this.FrontLeft = speeds[0];
+            this.FrontRight = speeds[1];
+            this.BackLeft = speeds[2];
+            this.BackRight = speeds[3];
+
+        }
+
+    }
+
     @Override
     public void init(HardwareMap hardwareMap) {
 
@@ -31,41 +58,29 @@ public class MecanumDrivetrain extends SubsystemBase {
 
     public void vector(double drive, double strafe, double twist) {
 
-        // Declare Speeds Per Motor
-        double[] speeds = {
-                (drive + strafe + twist), // Front Left  - speeds[0]
-                (drive - strafe - twist), // Front Right - speeds[1]
-                (drive - strafe + twist), // Back Left   - speeds[2]
-                (drive + strafe - twist)  // Back Right  - speeds[3]
-        };
-
-        // Find Largest Speed
-        double max = Math.abs(speeds[0]);
-        for(double speed : speeds) if(Math.abs(speed) > max) max = Math.abs(speed);
-
-        // Reduce All Speeds If Max Speed Is Outside Allowed Range of [-1,1]
-        if(max > 1d) for(int i = 0 ; i < speeds.length ; ++i) speeds[i] /= max;
+        MecanumMotorSpeeds motorSpeeds = new MecanumMotorSpeeds(
+                (drive + strafe + twist), // Front Left
+                (drive - strafe - twist), // Front Right
+                (drive - strafe + twist), // Back Left
+                (drive + strafe - twist)  // Back Right
+        );
 
         // Set Power To Motors
-        this.setPower(speeds[0],
-                speeds[1],
-                speeds[2],
-                speeds[3]);
+        this.setSpeed(motorSpeeds);
 
     }
 
-    public void setPower(double frontLeftPwr,
-                         double frontRightPwr,
-                         double backLeftPwr,
-                         double backRightPwr) {
-        frontLeft.setPower(frontLeftPwr);
-        frontRight.setPower(frontRightPwr);
-        backLeft.setPower(backLeftPwr);
-        backRight.setPower(backRightPwr);
+    public void setSpeed(MecanumMotorSpeeds motorSpeeds) {
+        frontLeft.setPower(motorSpeeds.FrontLeft);
+        frontRight.setPower(motorSpeeds.FrontRight);
+        backLeft.setPower(motorSpeeds.BackLeft);
+        backRight.setPower(motorSpeeds.BackRight);
     }
 
     public void stop() {
-        this.setPower(0d, 0d, 0d, 0d);
+        this.setSpeed(new MecanumMotorSpeeds(
+                0d, 0d, 0d, 0d
+        ));
     }
 
 }
