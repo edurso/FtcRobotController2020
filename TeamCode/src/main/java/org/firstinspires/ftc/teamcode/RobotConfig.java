@@ -8,4 +8,7 @@ public class RobotConfig {
     public static final String BACK_LEFT_MOTOR_NAME   = "back_left";
     public static final String BACK_RIGHT_MOTOR_NAME  = "back_right";
 
+    // Camera
+    public static final String WEBCAM = "Webcam 1";
+
 }

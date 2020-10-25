@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDrivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Vision;
 
 public class Robot {
 
@@ -10,11 +11,13 @@ public class Robot {
 
     // Declare Subsystems
     public MecanumDrivetrain drivetrain;
+    public Vision vision;
 
     private Robot() {
 
         // Create Subsystem Instances
         drivetrain = new MecanumDrivetrain();
+        vision = new Vision();
 
     }
 
@@ -28,6 +31,7 @@ public class Robot {
 
         // Initialize Subsystems
         drivetrain.init(hardwareMap);
+        vision.init(hardwareMap);
 
     }
 
