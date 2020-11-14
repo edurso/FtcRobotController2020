@@ -7,8 +7,14 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.Vision;
 
+/**
+ * Main Robot Object
+ */
 public class Robot {
 
+    /**
+     * Robot Instance
+     */
     private static Robot INSTANCE;
 
     // Declare Subsystems
@@ -27,12 +33,20 @@ public class Robot {
 
     }
 
+    /**
+     * Retrieves Instance of Robot
+     * @return The instance of {@code Robot}
+     */
     public static synchronized Robot getInstance() {
-        if(INSTANCE == null)
+        if (INSTANCE == null)
             INSTANCE = new Robot();
         return INSTANCE;
     }
 
+    /**
+     * Initializes All Subsystems
+     * @param hardwareMap The {@link com.qualcomm.robotcore.hardware.HardwareMap} from which to initialize the robot
+     */
     public void init(HardwareMap hardwareMap) {
 
         // Initialize Subsystems
