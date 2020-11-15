@@ -61,6 +61,12 @@ public class OpModeTransitioner extends Thread {
         this.opModeManager = null;
     }
 
+    /**
+     * Configures instance of {@link org.firstinspires.ftc.teamcode.util.OpModeTransitioner OpModeTransitioner}
+     * to transition between two given {@link com.qualcomm.robotcore.eventloop.opmode.OpMode OpModes}
+     * @param onStop {@link com.qualcomm.robotcore.eventloop.opmode.OpMode OpMode} that stops
+     * @param transitionTo {@link com.qualcomm.robotcore.eventloop.opmode.OpMode OpMode} to begin when {@code onStop} ends
+     */
     public static void config(OpMode onStop, String transitionTo) {
         INSTANCE.setNewTransition(onStop, transitionTo);
     }
