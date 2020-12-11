@@ -26,10 +26,10 @@ public class Robot {
     private Robot() {
 
         // Create Subsystem Instances
-        drivetrain = new MecanumDrivetrain();
-        vision = new Vision();
-        collector = new Collector();
-        shooter = new Shooter();
+        drivetrain  = new MecanumDrivetrain();
+        vision      = new Vision();
+        collector   = new Collector();
+        shooter     = new Shooter();
 
     }
 
