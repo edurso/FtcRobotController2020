@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
+import org.firstinspires.ftc.teamcode.subsystems.EOCVVision;
+import org.firstinspires.ftc.teamcode.subsystems.Indexer;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDrivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.VuforiaVision;
 
 /**
  * Main Robot Object
@@ -17,19 +19,32 @@ public class Robot {
      */
     private static Robot INSTANCE;
 
-    // Declare Subsystems
+    /* Declare Subsystems */
+    // Drivetrain
     public MecanumDrivetrain drivetrain;
-    public Vision vision;
-    public Collector collector;
-    public Shooter shooter;
+    // Vision Subsystems
+    public VuforiaVision  vuforiaVision;
+    public EOCVVision     eocvVision;
+    // Game Piece Manipulators
+    public Collector  collector;
+    public Indexer    indexer;
+    public Shooter    shooter;
 
+    /**
+     * Constructor instantiates subsystems
+     */
     private Robot() {
 
-        // Create Subsystem Instances
-        drivetrain  = new MecanumDrivetrain();
-        vision      = new Vision();
-        collector   = new Collector();
-        shooter     = new Shooter();
+        /* Create Subsystem Instances */
+        // Drivetrain
+        drivetrain     = new MecanumDrivetrain();
+        // Vision Subsystems
+        vuforiaVision  = new VuforiaVision();
+        eocvVision     = new EOCVVision();
+        // Game Piece Manipulators
+        collector      = new Collector();
+        indexer        = new Indexer();
+        shooter        = new Shooter();
 
     }
 
@@ -49,11 +64,16 @@ public class Robot {
      */
     public void init(HardwareMap hardwareMap) {
 
-        // Initialize Subsystems
-        drivetrain.init(hardwareMap);
-        vision.init(hardwareMap);
-        collector.init(hardwareMap);
-        shooter.init(hardwareMap);
+        /* Initialize Subsystems */
+        // Drivetrain
+        drivetrain      .init(hardwareMap);
+        // Vision Subsystems
+        vuforiaVision   .init(hardwareMap);
+        eocvVision      .init(hardwareMap);
+        // Game Piece Manipulators
+        collector       .init(hardwareMap);
+        indexer         .init(hardwareMap);
+        shooter         .init(hardwareMap);
 
     }
 

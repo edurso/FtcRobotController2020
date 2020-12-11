@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+/**
+ * Contains all the robot's configuration names as they appear in the configuration file.
+ */
 public class RobotConfig {
 
     // Drivetrain

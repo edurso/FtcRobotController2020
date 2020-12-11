@@ -9,14 +9,18 @@ import org.firstinspires.ftc.teamcode.util.JoystickFilter;
 @TeleOp(name = "Example TeleOp", group = "Tests")
 public class ExampleTeleOp extends OpMode {
 
+    // Robot object
     private Robot robot;
 
+    // Joystick filter for better control
     private JoystickFilter filter;
 
     public ExampleTeleOp() {
 
+        // Get the robot
         robot = Robot.getInstance();
 
+        // Set up the joystick filter
         filter = new JoystickFilter(0.05, JoystickFilter.Mode.CUBED);
 
     }

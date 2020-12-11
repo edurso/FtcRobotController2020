@@ -16,7 +16,7 @@ public class MecanumDrivetrain extends SubsystemBase {
 
     private class MecanumMotorSpeeds {
 
-        double[] speeds = new double[4];
+        double[] speeds;
 
         double FrontLeft, FrontRight, BackLeft, BackRight;
 

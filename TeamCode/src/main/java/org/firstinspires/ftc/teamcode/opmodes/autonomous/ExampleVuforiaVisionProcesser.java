@@ -5,29 +5,35 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-@Autonomous(name = "Example Vision", group = "Tests")
-public class ExampleVisionProcesser extends LinearOpMode {
+@Autonomous(name = "Example Vuforia Vision", group = "Tests")
+public class ExampleVuforiaVisionProcesser extends LinearOpMode {
 
+    // Robot object
     private Robot robot;
 
-    public ExampleVisionProcesser() {
+    public ExampleVuforiaVisionProcesser() {
         robot = Robot.getInstance();
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
+        // Initialize robot hardware
         robot.init(hardwareMap);
 
+        // Don't wait for start, we are just looking for things, not moving
         // waitForStart();
 
-        robot.vision.activate();
+        // Start vuforia
+        robot.vuforiaVision.activate();
 
+        // Loop and look
         while(!isStopRequested()) {
 
-            robot.vision.loop(this);
+            robot.vuforiaVision.loop(this);
 
         }
+
     }
 
 }
