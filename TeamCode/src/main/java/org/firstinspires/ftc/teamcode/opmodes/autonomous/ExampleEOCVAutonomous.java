@@ -46,6 +46,7 @@ public class ExampleEOCVAutonomous extends LinearOpMode {
 
             // Log pipeline results
             telemetry.addData("Number of Balls in View: ", visionPipeline.getNumObjectsSeen());
+            telemetry.update();
 
         }
 

@@ -18,12 +18,12 @@ public class MecanumDrivetrain extends SubsystemBase {
 
         double[] speeds;
 
-        double FrontLeft, FrontRight, BackLeft, BackRight;
+        double frontLeft, frontRight, backLeft, backRight;
 
-        MecanumMotorSpeeds(double FrontLeft, double FrontRight, double BackLeft, double BackRight) {
+        MecanumMotorSpeeds(double frontLeft, double frontRight, double backLeft, double backRight) {
 
             // Load Speeds
-            speeds = new double[]{FrontLeft, FrontRight, BackLeft, BackRight};
+            speeds = new double[]{frontLeft, frontRight, backLeft, backRight};
 
             // Find Largest Speed
             double max = Math.abs(speeds[0]);
@@ -32,10 +32,10 @@ public class MecanumDrivetrain extends SubsystemBase {
             // Reduce All Speeds If Max Speed Is Outside Allowed Range of [-1,1]
             if(max > 1d) for(int i = 0 ; i < speeds.length ; ++i) speeds[i] /= max;
 
-            this.FrontLeft = speeds[0];
-            this.FrontRight = speeds[1];
-            this.BackLeft = speeds[2];
-            this.BackRight = speeds[3];
+            this.frontLeft = speeds[0];
+            this.frontRight = speeds[1];
+            this.backLeft = speeds[2];
+            this.backRight = speeds[3];
 
         }
 
@@ -49,10 +49,10 @@ public class MecanumDrivetrain extends SubsystemBase {
         backLeft   = hardwareMap.get(DcMotor.class, RobotConfig.BACK_LEFT_MOTOR_NAME);
         backRight  = hardwareMap.get(DcMotor.class, RobotConfig.BACK_RIGHT_MOTOR_NAME);
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontLeft  .setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight .setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft   .setDirection(DcMotorSimple.Direction.FORWARD);
+        backRight  .setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
 
@@ -71,16 +71,14 @@ public class MecanumDrivetrain extends SubsystemBase {
     }
 
     public void setSpeed(MecanumMotorSpeeds motorSpeeds) {
-        frontLeft.setPower(motorSpeeds.FrontLeft);
-        frontRight.setPower(motorSpeeds.FrontRight);
-        backLeft.setPower(motorSpeeds.BackLeft);
-        backRight.setPower(motorSpeeds.BackRight);
+        frontLeft  .setPower(motorSpeeds.frontLeft);
+        frontRight .setPower(motorSpeeds.frontRight);
+        backLeft   .setPower(motorSpeeds.backLeft);
+        backRight  .setPower(motorSpeeds.backRight);
     }
 
     public void stop() {
-        this.setSpeed(new MecanumMotorSpeeds(
-                0d, 0d, 0d, 0d
-        ));
+        this.setSpeed(new MecanumMotorSpeeds(0d, 0d, 0d, 0));
     }
 
 }
