@@ -78,7 +78,7 @@ public class MecanumDrivetrain extends SubsystemBase {
     }
 
     public void stop() {
-        this.setSpeed(new MecanumMotorSpeeds(0d, 0d, 0d, 0));
+        this.setSpeed(new MecanumMotorSpeeds(0d, 0d, 0d, 0d));
     }
 
 }
