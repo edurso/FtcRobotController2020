@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -79,6 +80,55 @@ public class MecanumDrivetrain extends SubsystemBase {
 
     public void stop() {
         this.setSpeed(new MecanumMotorSpeeds(0d, 0d, 0d, 0d));
+    }
+
+    public double getDriveDistance() {
+        // TODO implement
+        return 0.0;
+    }
+
+    public double getStrafeDistance() {
+        // TODO implement
+        return 0.0;
+    }
+
+    public double getHeading() {
+        // TODO implement
+        return 0.0;
+    }
+
+    public void closedLoopDrive(double distance) {
+        RobotConfig.DRIVE_CONTROLLER.setSetpoint(distance);
+        RobotConfig.TWIST_CONTROLLER.setSetpoint(getHeading());
+        while (!(RobotConfig.DRIVE_CONTROLLER.atSetPoint() && RobotConfig.TWIST_CONTROLLER.atSetPoint())) {
+            // Calculate output from current position
+            double drive = RobotConfig.DRIVE_CONTROLLER.calculate(getDriveDistance());
+            double twist = RobotConfig.TWIST_CONTROLLER.calculate(getHeading());
+            // Set drive output
+            vector(drive, 0, twist);
+        }
+    }
+
+    public void closedLoopStrafe(double distance) {
+        RobotConfig.STRAFE_CONTROLLER.setSetpoint(distance);
+        RobotConfig.TWIST_CONTROLLER.setSetpoint(getHeading());
+        while (!(RobotConfig.STRAFE_CONTROLLER.atSetPoint() && RobotConfig.TWIST_CONTROLLER.atSetPoint())) {
+            // Calculate output from current position
+            double strafe = RobotConfig.STRAFE_CONTROLLER.calculate(getStrafeDistance());
+            double twist = RobotConfig.TWIST_CONTROLLER.calculate(getHeading());
+            // Set drive output
+            vector(0, strafe, twist);
+        }
+    }
+
+    public void closedLoopTurn(double angle) {
+        RobotConfig.TWIST_CONTROLLER.setSetpoint(angle);
+        while (!RobotConfig.TWIST_CONTROLLER.atSetPoint()) {
+            // Calculate output from current position
+            double twist = RobotConfig.TWIST_CONTROLLER.calculate(getHeading());
+            // Set drive output
+            vector(0, 0, twist);
+        }
     }
 
 }
